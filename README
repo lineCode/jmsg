@@ -1,0 +1,21 @@
+本程序名为 jmsg，用于 c++ struct 的序列化和反序列化，即 struct 和 json 字串的相互转换。
+目前用于项目中进程间通信，主要是控制信息及状态数据。
+可类比于 protobuf 或 msgpack，但不是二进制数据流，而是 json 字串。
+
+IDL 基于 json，示例参见参见 scripts/jmsg.json
+本工具可先根据 IDL 文件（即消息定义文件）生成 c++ 代码，然后程序可以用其收发消息。
+目前还为支持可选字段，计划未来在 "attr" 中加入一个特性，用于指示是否“可选”。
+
+本代码库中已包含 rapidjson 头文件，地址 https://github.com/miloyip/rapidjson
+
+1. 编译 generator
+   cd test
+   make -f Makefile.idl
+2. 生成 c++ 代码
+   cd test
+   ./output/idl/debug/bin/jmsg_generator
+   生成的文件位于 include/jmsg 和 src/jmsg 下
+3. 编译并运行测试程序
+   cd test
+   make -f Makefile.jmsg
+   ./output/jmsg/debug/bin/jmsg_test
